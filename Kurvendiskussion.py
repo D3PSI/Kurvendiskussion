@@ -38,10 +38,14 @@ wendestellen = {x0 for x0 in wendestellen_mögl if x0 not in sym.solveset(f3, x)
 
 # Graphische Darstellung
 plt.figure(1)
-t1 = np.arange(-10.0, 10.0, 0.1)
-plt.plot(t1, fnc(t1), t1, fnc1(t1), t1, fnc2(t1), t1, fnc3(t1))
+t1 = np.arange(-100.0, 100.0, 0.1)
+plt.plot(t1, fnc(t1), label="f(x)")
+plt.plot(t1, fnc1(t1), label="f'(x)")
+plt.plot(t1, fnc2(t1), label="f''(x)")
+plt.plot(t1, fnc3(t1), label="f'''(x)")
 plt.suptitle('f(x) = ' + funktion_str + "\n" + "f'(x) = " + str(f1.as_expr()))
 plt.plot(1.5, 1.5, "or")
+plt.legend(loc="upper left")
 plt.show()
 
 def main():
