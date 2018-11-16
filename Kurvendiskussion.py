@@ -45,7 +45,7 @@ print("Wendestellen:    " + str(wendestellen))
 
 # Graphische Darstellung
 plt.figure(1)
-t1 = np.arange(-10.0, 10.0, 0.1)
+t1 = np.arange(-4.0, 4.0, 0.1)
 plt.plot(t1, fnc(t1), label="f(x)")
 plt.plot(t1, fnc1(t1), label="f'(x)")
 plt.plot(t1, fnc2(t1), label="f''(x)")
@@ -53,14 +53,14 @@ plt.plot(t1, fnc3(t1), label="f'''(x)")
 plt.suptitle('f(x) = ' + funktion_str + "\n" + "f'(x) = " + str(f1.as_expr()))
 for nullstelle in nullstellen:
     plt.plot(nullstelle.as_expr().evalf(), fnc(nullstelle.as_expr().evalf()), "or")
-    plt.annotate("(" + str(nullstelle.as_expr().evalf()) + ", " + str(fnc(nullstelle.as_expr().evalf())) + ")", xy=(nullstelle.as_expr().evalf(), fnc(nullstelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
+    plt.annotate("(" + str(sym.N(nullstelle.as_expr(), 4)) + ", " + str(sym.N(fnc(nullstelle.as_expr()), 4)) + ")", xy=(nullstelle.as_expr().evalf(), fnc(nullstelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
 
 for extremstelle in extremstellen:
     plt.plot(extremstelle.as_expr().evalf(), fnc(extremstelle.as_expr().evalf()), "or")
-    plt.annotate("(" + str(extremstelle.as_expr().evalf()) + ", " + str(fnc(extremstelle.as_expr().evalf())) + ")", xy=(extremstelle.as_expr().evalf(), fnc(extremstelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
+    plt.annotate("(" + str(sym.N(extremstelle.as_expr(), 4)) + ", " + str(sym.N(fnc(extremstelle.as_expr()), 4)) + ")", xy=(extremstelle.as_expr().evalf(), fnc(extremstelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
 
 for wendestelle in wendestellen:
     plt.plot(wendestelle.as_expr().evalf(), fnc(wendestelle.as_expr().evalf()), "or")
-    plt.annotate("(" + str(wendestelle.as_expr().evalf()) + ", " + str(fnc(wendestelle.as_expr().evalf())) + ")", xy=(wendestelle.as_expr().evalf(), fnc(wendestelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
+    plt.annotate("(" + str(sym.N(wendestelle.as_expr(), 4)) + ", " + str(sym.N(fnc(wendestelle.as_expr()), 4)) + ")", xy=(wendestelle.as_expr().evalf(), fnc(wendestelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
 plt.legend(loc="upper left")
 plt.show()
