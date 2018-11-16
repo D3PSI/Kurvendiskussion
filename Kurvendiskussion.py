@@ -45,7 +45,9 @@ print("Wendestellen:    " + str(wendestellen))
 
 # Graphische Darstellung
 plt.figure(1)
-t1 = np.arange(-4.0, 4.0, 0.1)
+t1 = np.arange(-4.0, 4.0, 0.01)
+plt.ylim(-20, 40)
+plt.grid()
 plt.plot(t1, fnc(t1), label="f(x)")
 plt.plot(t1, fnc1(t1), label="f'(x)")
 plt.plot(t1, fnc2(t1), label="f''(x)")
