@@ -36,25 +36,31 @@ extremstellen = {x0 for x0 in extremstellen_mögl if x0 not in sym.solveset(f2, 
 wendestellen_mögl = list(sym.solveset(f2, x))
 wendestellen = {x0 for x0 in wendestellen_mögl if x0 not in sym.solveset(f3, x)}
 
+print("1. Ableitung:    " + str(f1))
+print("2. Ableitung:    " + str(f2))
+print("3. Ableitung:    " + str(f3))
+print("Nullstellen:     " + str(nullstellen))
+print("Extremstellen:   " + str(extremstellen))
+print("Wendestellen:    " + str(wendestellen))
+
 # Graphische Darstellung
 plt.figure(1)
-t1 = np.arange(-100.0, 100.0, 0.1)
+t1 = np.arange(-10.0, 10.0, 0.1)
 plt.plot(t1, fnc(t1), label="f(x)")
 plt.plot(t1, fnc1(t1), label="f'(x)")
 plt.plot(t1, fnc2(t1), label="f''(x)")
 plt.plot(t1, fnc3(t1), label="f'''(x)")
 plt.suptitle('f(x) = ' + funktion_str + "\n" + "f'(x) = " + str(f1.as_expr()))
-plt.plot(1.5, 1.5, "or")
+for nullstelle in nullstellen:
+    plt.plot(nullstelle.as_expr().evalf(), fnc(nullstelle.as_expr().evalf()), "or")
+    plt.annotate("(" + str(nullstelle.as_expr().evalf()) + ", " + str(fnc(nullstelle.as_expr().evalf())) + ")", xy=(nullstelle.as_expr().evalf(), fnc(nullstelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
+
+for extremstelle in extremstellen:
+    plt.plot(extremstelle.as_expr().evalf(), fnc(extremstelle.as_expr().evalf()), "or")
+    plt.annotate("(" + str(extremstelle.as_expr().evalf()) + ", " + str(fnc(extremstelle.as_expr().evalf())) + ")", xy=(extremstelle.as_expr().evalf(), fnc(extremstelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
+
+for wendestelle in wendestellen:
+    plt.plot(wendestelle.as_expr().evalf(), fnc(wendestelle.as_expr().evalf()), "or")
+    plt.annotate("(" + str(wendestelle.as_expr().evalf()) + ", " + str(fnc(wendestelle.as_expr().evalf())) + ")", xy=(wendestelle.as_expr().evalf(), fnc(wendestelle.as_expr().evalf())), xytext=(10, 0), textcoords="offset points")
 plt.legend(loc="upper left")
 plt.show()
-
-def main():
-    print("1. Ableitung:    " + str(f1))
-    print("2. Ableitung:    " + str(f2))
-    print("3. Ableitung:    " + str(f3))
-    print("Nullstellen:     " + str(nullstellen))
-    print("Extremstellen:   " + str(extremstellen))
-    print("Wendestellen:    " + str(wendestellen))
-
-if __name__ == "__main__":
-    main()
