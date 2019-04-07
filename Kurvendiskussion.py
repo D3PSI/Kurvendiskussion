@@ -99,30 +99,47 @@ class FunctionDiscussion:
 
                 break
 
-        temp = self.differentials_lambdified[0]
-        for nullstelle in nullstellen:
-            plt.plot(nullstelle.as_expr().evalf(), temp(nullstelle.as_expr().evalf()), "or")
-            plt.annotate(
-                "(" + str(sym.N(nullstelle.as_expr(), 4)) + ", " + str(sym.N(temp(nullstelle.as_expr()), 4)) + ")",
-                xy=(nullstelle.as_expr().evalf(), temp(nullstelle.as_expr().evalf())), xytext=(10, 0),
-                textcoords="offset points")
+        try:
 
-        for extremstelle in extremstellen:
-            plt.plot(extremstelle.as_expr().evalf(), temp(extremstelle.as_expr().evalf()), "or")
-            plt.annotate(
-                "(" + str(sym.N(extremstelle.as_expr(), 4)) + ", " + str(sym.N(temp(extremstelle.as_expr()), 4)) + ")",
-                xy=(extremstelle.as_expr().evalf(), temp(extremstelle.as_expr().evalf())), xytext=(10, 0),
-                textcoords="offset points")
+            temp = self.differentials_lambdified[0]
+            for nullstelle in nullstellen:
+                plt.plot(nullstelle.as_expr().evalf(), temp(nullstelle.as_expr().evalf()), "or")
+                plt.annotate(
+                    "(" + str(sym.N(nullstelle.as_expr(), 4)) + ", " + str(sym.N(temp(nullstelle.as_expr()), 4)) + ")",
+                    xy=(nullstelle.as_expr().evalf(), temp(nullstelle.as_expr().evalf())), xytext=(10, 0),
+                    textcoords="offset points")
 
-        for wendestelle in wendestellen:
-            plt.plot(wendestelle.as_expr().evalf(), temp(wendestelle.as_expr().evalf()), "or")
-            plt.annotate(
-                "(" + str(sym.N(wendestelle.as_expr(), 4)) + ", " + str(sym.N(temp(wendestelle.as_expr()), 4)) + ")",
-                xy=(wendestelle.as_expr().evalf(), temp(wendestelle.as_expr().evalf())), xytext=(10, 0),
-                textcoords="offset points")
+        except:
 
-        plt.legend(loc="upper left")
-        plt.show()
+            pass
+
+        try:
+
+            for extremstelle in extremstellen:
+                plt.plot(extremstelle.as_expr().evalf(), temp(extremstelle.as_expr().evalf()), "or")
+                plt.annotate(
+                    "(" + str(sym.N(extremstelle.as_expr(), 4)) + ", " + str(sym.N(temp(extremstelle.as_expr()), 4)) + ")",
+                    xy=(extremstelle.as_expr().evalf(), temp(extremstelle.as_expr().evalf())), xytext=(10, 0),
+                    textcoords="offset points")
+        except:
+
+            pass
+
+        try:
+
+            for wendestelle in wendestellen:
+                plt.plot(wendestelle.as_expr().evalf(), temp(wendestelle.as_expr().evalf()), "or")
+                plt.annotate(
+                    "(" + str(sym.N(wendestelle.as_expr(), 4)) + ", " + str(sym.N(temp(wendestelle.as_expr()), 4)) + ")",
+                    xy=(wendestelle.as_expr().evalf(), temp(wendestelle.as_expr().evalf())), xytext=(10, 0),
+                    textcoords="offset points")
+
+        except:
+
+            pass
+
+            plt.legend(loc="upper left")
+            plt.show()
 
 
 def init():
