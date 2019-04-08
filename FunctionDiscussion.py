@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 class FunctionDiscussion:
 
-    function_input = ""
+    function_input_raw = ""
     differentials = []
     differentials_lambdified = []
     x = sym.Symbol('x')
@@ -20,8 +20,8 @@ class FunctionDiscussion:
 
     def function_input(self):
 
-        self.function_input = input("Input function in x:    f(x) = ")
-        function_raw = sym.sympify(self.function_input)
+        self.function_input_raw = input("Input function in x:    f(x) = ")
+        function_raw = sym.sympify(self.function_input_raw)
 
         self.differentials.append(function_raw)
         print(self.differentials)
@@ -61,27 +61,45 @@ class FunctionDiscussion:
 
     def show(self):
 
-        # Nullstellen, Kriterium: f(x) = 0
-        nullstellen = sym.solveset(self.function_raw, self.x)
+        try:
 
-        # Extremstellen, Kriterium: f'(x) = 0 && f''(x) != 0
-        extremstellen_mögl = list(sym.solveset(self.differentials[1], self.x))
-        extremstellen = {x0 for x0 in extremstellen_mögl if x0 not in sym.solveset(self.differentials[2], self.x)}
+            # Roots: f(x) = 0
+            roots = sym.solveset(self.function_raw, self.x)
+            print("Roots:     " + str(roots))
 
-        # Wendestellen, Kriterium: f'(x) = 0 && f''(x) = 0
-        wendestellen_mögl = list(sym.solveset(self.differentials[2], self.x))
-        wendestellen = {x0 for x0 in wendestellen_mögl if x0 not in sym.solveset(self.differentials[3], self.x)}
+        except:
 
-        print("Nullstellen:     " + str(nullstellen))
-        print("Extremstellen:   " + str(extremstellen))
-        print("Wendestellen:    " + str(wendestellen))
+            pass
+
+        try:
+
+            # Local extrema: f'(x) = 0 && f''(x) != 0
+            extrema_possible = list(sym.solveset(self.differentials[1], self.x))
+            extrema = {x0 for x0 in extrema_possible if x0 not in sym.solveset(self.differentials[2], self.x)}
+            print("Extrema:   " + str(extrema))
+
+        except:
+
+            pass
+
+        try:
+
+            # Inflections: f'(x) = 0 && f''(x) = 0
+            inflections_possible = list(sym.solveset(self.differentials[2], self.x))
+            inflections = {x0 for x0 in inflections_possible if x0 not in sym.solveset(self.differentials[3], self.x)}
+            print("Inflections:    " + str(inflections))
+
+        except:
+
+            pass
 
         plt.figure(num="D3PSI's function plotter")
         plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
         x = np.arange(-4.0, 4.0, 0.01)
         plt.ylim(-20, 40)
         plt.grid()
-        plt.suptitle('f(x) = ' + self.function_input)
+        plt.suptitle('f(x) = ' + self.function_input_raw)
+
         for i in range(0, self.max_diffs):
 
             try:
@@ -102,11 +120,12 @@ class FunctionDiscussion:
         try:
 
             temp = self.differentials_lambdified[0]
-            for nullstelle in nullstellen:
-                plt.plot(nullstelle.as_expr().evalf(), temp(nullstelle.as_expr().evalf()), "or")
+            for root in roots:
+
+                plt.plot(root.as_expr().evalf(), temp(root.as_expr().evalf()), "or")
                 plt.annotate(
-                    "(" + str(sym.N(nullstelle.as_expr(), 4)) + ", " + str(sym.N(temp(nullstelle.as_expr()), 4)) + ")",
-                    xy=(nullstelle.as_expr().evalf(), temp(nullstelle.as_expr().evalf())), xytext=(10, 0),
+                    "(" + str(sym.N(root.as_expr(), 4)) + ", " + str(sym.N(temp(root.as_expr()), 4)) + ")",
+                    xy=(root.as_expr().evalf(), temp(root.as_expr().evalf())), xytext=(10, 0),
                     textcoords="offset points")
 
         except:
@@ -115,11 +134,12 @@ class FunctionDiscussion:
 
         try:
 
-            for extremstelle in extremstellen:
-                plt.plot(extremstelle.as_expr().evalf(), temp(extremstelle.as_expr().evalf()), "or")
+            for extreme in extrema:
+
+                plt.plot(extreme.as_expr().evalf(), temp(extreme.as_expr().evalf()), "or")
                 plt.annotate(
-                    "(" + str(sym.N(extremstelle.as_expr(), 4)) + ", " + str(sym.N(temp(extremstelle.as_expr()), 4)) + ")",
-                    xy=(extremstelle.as_expr().evalf(), temp(extremstelle.as_expr().evalf())), xytext=(10, 0),
+                    "(" + str(sym.N(extreme.as_expr(), 4)) + ", " + str(sym.N(temp(extreme.as_expr()), 4)) + ")",
+                    xy=(extreme.as_expr().evalf(), temp(extreme.as_expr().evalf())), xytext=(10, 0),
                     textcoords="offset points")
         except:
 
@@ -127,19 +147,19 @@ class FunctionDiscussion:
 
         try:
 
-            for wendestelle in wendestellen:
-                plt.plot(wendestelle.as_expr().evalf(), temp(wendestelle.as_expr().evalf()), "or")
+            for inflection in inflections:
+                plt.plot(inflection.as_expr().evalf(), temp(inflection.as_expr().evalf()), "or")
                 plt.annotate(
-                    "(" + str(sym.N(wendestelle.as_expr(), 4)) + ", " + str(sym.N(temp(wendestelle.as_expr()), 4)) + ")",
-                    xy=(wendestelle.as_expr().evalf(), temp(wendestelle.as_expr().evalf())), xytext=(10, 0),
+                    "(" + str(sym.N(inflection.as_expr(), 4)) + ", " + str(sym.N(temp(inflection.as_expr()), 4)) + ")",
+                    xy=(inflection.as_expr().evalf(), temp(inflection.as_expr().evalf())), xytext=(10, 0),
                     textcoords="offset points")
 
         except:
 
             pass
 
-            plt.legend(loc="upper left")
-            plt.show()
+        plt.legend(loc="upper left")
+        plt.show()
 
 
 def init():

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Kurvendiskussion.iml" filepath="$PROJECT_DIR$/.idea/Kurvendiskussion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../FunctionDiscussion/.idea/FunctionDiscussion.iml" filepath="$PROJECT_DIR$/../FunctionDiscussion/.idea/FunctionDiscussion.iml" />
     </modules>
   </component>
 </project>
